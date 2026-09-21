@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Panchayat OS — Birthday Edition</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#ff4fa3;--p2:#ff9bd1;--bg:#090714}
+html,body{min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:#fff}
+body{overflow-x:hidden}.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 50% 15%,#34132d 0,#120b1c 38%,#090714 75%)}
+.stars{position:fixed;inset:0;z-index:-1;opacity:.5;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:52px 52px}
+.screen{min-height:100vh;padding:28px 16px 50px;display:none;align-items:center;justify-content:center}
+.screen.active{display:flex;animation:fade .5s ease}
+.container{width:min(720px,100%);text-align:center}.badge{display:inline-block;border:1px solid #ffffff22;background:#ffffff0b;padding:8px 12px;border-radius:999px;color:var(--p2);font-size:12px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(36px,10vw,72px);line-height:.98;margin-bottom:18px}h2{font-size:clamp(28px,8vw,48px);margin-bottom:14px}p{color:#c9c1d0;line-height:1.65}
+button{border:0;border-radius:14px;padding:14px 18px;font-size:15px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--p),#ff72c0);color:white;box-shadow:0 10px 30px #ff4fa333;transition:.2s}
+button:active{transform:scale(.96)}.secondary{background:#ffffff0d;border:1px solid #ffffff1c;box-shadow:none}
+.buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:25px}
+.card{background:#ffffff08;border:1px solid #ffffff14;border-radius:22px;padding:20px;margin-top:18px;text-align:left;backdrop-filter:blur(12px)}
+.terminal{background:#050508;border:1px solid #ffffff18;border-radius:18px;padding:17px;text-align:left;font-family:ui-monospace,monospace;font-size:13px;line-height:1.9;color:#9fffc9;margin:22px 0}.pink{color:#ff82c4}
+.stat{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #ffffff0d}.stat:last-child{border:0}.stat span{color:#ff9bd1;font-weight:800;text-align:right}
+.chat{height:245px;overflow:auto;display:flex;flex-direction:column;gap:9px;margin-bottom:12px}.msg{max-width:88%;padding:10px 13px;border-radius:14px;background:#ffffff0b;text-align:left;color:#ddd}.msg.user{align-self:flex-end;background:#ff4fa31c;color:#ffd4e9}
+.inputrow{display:flex;gap:8px}.inputrow input{flex:1;min-width:0;background:#ffffff08;border:1px solid #ffffff1c;border-radius:13px;padding:13px;color:white;outline:none}
+.small{font-size:12px;color:#81778c}.final{font-size:18px;color:#e9e0ec;line-height:1.8}.signature{margin-top:22px;color:#ff9bd1;font-weight:800}
+.glow{color:#ff9bd1;text-shadow:0 0 25px #ff4fa388}.confetti{position:fixed;width:8px;height:14px;top:-20px;z-index:99;animation:fall linear forwards}
+.gift-card{margin-top:22px;text-align:center;background:#ffffff08;border:1px solid #ffffff14;border-radius:24px;padding:18px;overflow:hidden}
+.gift-card img{width:100%;max-height:520px;object-fit:contain;border-radius:16px;background:#050508;display:block}
+.gift-caption{font-size:20px;font-weight:850;color:#fff;margin:12px 0 16px}.gift-note{font-size:14px;color:#aaa0b8;margin-bottom:12px}
+@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@media(max-width:480px){.screen{padding:22px 14px 40px}.card{padding:17px}.terminal{font-size:12px}.gift-card{padding:12px}.gift-caption{font-size:18px}}
+</style>
+</head>
+<body>
+<div id="app"><div class="bg"></div><div class="stars"></div>
+
+<section class="screen active" id="s1"><div class="container">
+<div class="badge">⚠ Birthday System Alert</div><h1>Something is<br><span class="glow">very wrong.</span></h1>
+<p>A critical event has been detected in the system.</p>
+<div class="terminal">> scanning calendar...<br>> anomaly detected: <span class="pink">21 → 22 September</span><br>> subject identified: <span class="pink">PANCHAYAT</span><br>> birthday protocol: <span class="pink">READY</span></div>
+<button onclick="go(2)">INVESTIGATE →</button></div></section>
+
+<section class="screen" id="s2"><div class="container">
+<div class="badge">🔐 Birthday Verification</div><h2>Identity Check</h2><p>Before continuing, the system needs to verify the birthday subject.</p>
+<div class="card"><div style="font-size:22px;font-weight:800">Are you actually Panchayat?</div>
+<div class="buttons"><button onclick="verify(true)">Obviously 🙄</button><button class="secondary" onclick="verify(false)">No</button></div>
+<p id="verifyMsg" class="small" style="margin-top:15px"></p></div></div></section>
+
+<section class="screen" id="s3"><div class="container">
+<div class="badge">🧑‍💻 PANCHAYAT OS v19.0</div><h2>System Analysis</h2><p>Running extremely scientific and definitely accurate diagnostics...</p>
+<div class="card">
+<div class="stat"><b>😂 Joke tolerance</b><span>99.9%</span></div><div class="stat"><b>😈 Mutual teasing</b><span>MAXIMUM</span></div>
+<div class="stat"><b>🧠 Overthinking</b><span>999%</span></div><div class="stat"><b>👂 Listening to Bestie</b><span>0.7%</span></div>
+<div class="stat"><b>✈️ Imaginary future trips</b><span>LOADING...</span></div><div class="stat"><b>🐕 Straightness of the tail</b><span>NOT FOUND</span></div>
+</div><button onclick="go(4)">CONTINUE ANALYSIS →</button></div></section>
+
+<section class="screen" id="s4"><div class="container">
+<div class="badge">🕵️ Case File #19</div><h2>The Panchayat Investigation</h2>
+<div class="card"><p><b>Subject:</b> Jigyasa</p><p><b>Codename:</b> Panchayat</p><p><b>Age detected:</b> 19</p>
+<p><b>Known behavior:</b> Teases bestie → overthinks → ignores advice → somehow proves bestie right → creates another imaginary travel plan.</p><br>
+<p><b>Official evidence:</b></p><p>“Kutte ki puch kabhi sidhi nhi hoti.” 🐕</p></div>
+<button onclick="go(5)">VIEW VERDICT →</button></div></section>
+
+<section class="screen" id="s5"><div class="container">
+<div class="badge">🤖 Birthday AI</div><h2>Ask PanchayatGPT</h2><p>Ask anything. The answers are scientifically questionable.</p>
+<div class="card"><div class="chat" id="chat"><div class="msg">Hello, Bestie. I am PanchayatGPT. Ask me something important. Or completely useless. I don't judge. 🤖</div></div>
+<div class="inputrow"><input id="q" placeholder="Ask the birthday AI..." onkeydown="if(event.key==='Enter')ask()"><button onclick="ask()">Ask</button></div>
+<div class="buttons">
+<button class="secondary" onclick="quick('Why do I overthink?')">Why do I overthink?</button>
+<button class="secondary" onclick="quick('When are we travelling?')">When are we travelling?</button>
+<button class="secondary" onclick="quick('Am I beautiful?')">Am I beautiful? 💅</button>
+<button class="secondary" onclick="quick('Am I actually Panchayat?')">Am I actually Panchayat? 😂</button>
+<button class="secondary" onclick="quick('Why does my bestie tease me so much?')">Why does my bestie tease me?</button>
+</div></div>
+<button onclick="go(6)">ENOUGH AI. SHOW THE BIRTHDAY →</button></div></section>
+
+<section class="screen" id="s6"><div class="container">
+<div class="badge">🎂 Birthday Protocol Activated</div>
+<h1 class="glow">HAPPY 19TH<br>BIRTHDAY, MADAM JII! 🎉</h1>
+<p class="final">Jokes apart...<br><br>
+We've spent enough time annoying each other, teasing each other and creating completely imaginary travel plans that somehow we both know we're actually going to make someday.<br><br>
+You're genuinely an amazing bestie, and I'm really glad I got someone like you in my life.<br><br>
+I hope 19 brings you lots of happiness, crazy memories, successful plans, and obviously... <b>fewer things to overthink.</b></p>
+<div class="signature">Happy Birthday, Madam Jii. ❤️<br>— Your Bestie</div>
+<div class="card"><p><b>SYSTEM MESSAGE:</b></p><p>Bestie connection cannot be uninstalled.</p><p>Status: <span class="glow">PERMANENT ♾️</span></p></div>
+<button onclick="go(7)">🎁 WAIT... THERE'S A BIRTHDAY GIFT</button></div></section>
+
+<section class="screen" id="s7"><div class="container">
+<div class="badge">🎁 Birthday Gift Unlocked</div>
+<h2>Your Birthday Gift</h2>
+<p>Okay, Madam Jii... the system has one final delivery.</p>
+
+<div class="gift-card">
+<div class="gift-caption">🎁 First, the official birthday gift:</div>
+<img src="birthday-gift.png" alt="Funny birthday gift meme">
+</div>
+
+<div class="gift-card">
+<div class="gift-caption">Waise... my bestie looks good though. 👀</div>
+<img src="bestie-photo.jpg" alt="Jigyasa">
+</div>
+
+<div class="gift-card">
+<div class="gift-caption">Your reaction after seeing this:</div>
+<img src="reaction-sticker.png" alt="Funny reaction sticker">
+</div>
+
+<div class="card" style="text-align:center">
+<p><b>GIFT DELIVERY STATUS:</b></p>
+<p class="glow">Successfully delivered. 🎉</p>
+<p class="small" style="margin-top:8px">No returns. No exchanges. Friendship terms apply indefinitely.</p>
+</div>
+<button onclick="celebrate()">🎉 ACTIVATE MAXIMUM CHAOS</button>
+</div></section>
+</div>
+
+<script>
+let audioCtx=null;
+function initAudio(){if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC()}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume()}
+function tone(freq,duration=.1,type='sine',volume=.03,delay=0){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(0,audioCtx.currentTime+delay);g.gain.linearRampToValueAtTime(volume,audioCtx.currentTime+delay+.015);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+delay+duration);o.connect(g);g.connect(audioCtx.destination);o.start(audioCtx.currentTime+delay);o.stop(audioCtx.currentTime+delay+duration+.02)}
+function clickSound(){initAudio();tone(520,.06,'sine',.022)}
+function successSound(){initAudio();tone(523,.12,'sine',.035,0);tone(659,.12,'sine',.035,.11);tone(784,.18,'sine',.04,.22)}
+function birthdaySound(){initAudio();[523,659,784,1047,784,1047].forEach((n,i)=>tone(n,.2,'triangle',.045,i*.13))}
+document.addEventListener('click',e=>{if(e.target.closest('button'))clickSound()},{passive:true});
+function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');scrollTo(0,0);if(n===6||n===7)birthdaySound()}
+function verify(ok){const m=document.getElementById('verifyMsg');if(ok){successSound();m.textContent='Identity confirmed. Unfortunately, you are definitely Panchayat. 😂';setTimeout(()=>go(3),900)}else m.textContent='Nice try. System says: LIAR DETECTED. 😂'}
+function quick(t){document.getElementById('q').value=t;ask()}
+function ask(){const input=document.getElementById('q'),q=input.value.trim();if(!q)return;const chat=document.getElementById('chat');chat.innerHTML+=`<div class="msg user">${esc(q)}</div>`;let a="The birthday AI has no idea. Please ask your bestie. 😂";const x=q.toLowerCase();
+if(x.includes('overthink'))a="Because your brain has a PhD in creating problems that haven't happened yet. 🧠😂";
+else if(x.includes('beautiful'))a="Yes. Obviously. Next question. 💅✨ The birthday AI has spoken.";
+else if(x.includes('travel'))a="According to the highly reliable Panchayat Travel Department: SOMEDAY™. Destination: somewhere. Date: confidential. Planning level: imaginary but suspiciously realistic. ✈️";
+else if(x.includes('bestie'))a="Bestie status: permanently assigned. Cancellation request: rejected. ❌";
+else if(x.includes('panchayat'))a="The evidence is overwhelming. You are 100% Panchayat. There is no cure. 😂";
+else if(x.includes('birthday')||x.includes('19'))a="You're 19 now. Please use this new level of adulthood responsibly. Or don't. 😂🎂";
+setTimeout(()=>{chat.innerHTML+=`<div class="msg">${a}</div>`;chat.scrollTop=chat.scrollHeight},350);input.value=''}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function celebrate(){birthdaySound();for(let i=0;i<100;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.animationDuration=(2+Math.random()*3)+'s';c.style.animationDelay=Math.random()*1.5+'s';c.style.background=['#ff4fa3','#ff9bd1','#ffd166','#fff','#9fffc9'][Math.floor(Math.random()*5)];document.body.appendChild(c);setTimeout(()=>c.remove(),6000)}}
+</script>
+</body>
+</html>
